@@ -107,7 +107,7 @@ const ReactComponent = () => {
 }
 ```
 
-If you only need to dispatch to the store or set the store you can just pass false to the hook and the component will never re render but you can still use the set/dispatch function.
+If you only need to dispatch to the store or set the store you can just pass `false` to the hook and the component will never re render but you can still use the set/dispatch function.
 
 ```js
 import { useStore } from 'location of your store'
@@ -118,3 +118,7 @@ const ReactComponent = () => {
   return <button onClick={() => setFoo('New Foo')}>Set Foo</button>
 }
 ```
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
