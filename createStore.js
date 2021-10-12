@@ -3,17 +3,17 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 const isFn = (fn) => typeof fn === 'function'
 const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-const createStore = (initialState, reducer) => {
-  let state = initialState
+const createStore = (initialStore, reducer) => {
+  let store = initialStore
   const listeners = new Set()
 
-  const setState = (action) => {
-    let oldState = state
+  const setStore = (action) => {
+    let oldStore = store
 
     if (reducer) {
-      state = reducer(state, action)
+      store = reducer(store, action)
     } else {
-      state = isFn(action) ? action(state) : action
+      store = isFn(action) ? action(store) : action
     }
 
     const checkKeys = (keys) => {
@@ -21,7 +21,7 @@ const createStore = (initialState, reducer) => {
       if (!keys) return true
 
       for (let i = 0; i < keys.length; i++) {
-        if (keys[i] in state && state[keys[i]] !== oldState[keys[i]]) {
+        if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
           return true
         }
       }
@@ -29,9 +29,9 @@ const createStore = (initialState, reducer) => {
       return false
     }
 
-    if (state !== oldState) {
+    if (store !== oldStore) {
       listeners.forEach(({ keys, fire }) => {
-        if (checkKeys(keys)) fire(state)
+        if (checkKeys(keys)) fire(store)
       })
     }
   }
@@ -49,7 +49,7 @@ const createStore = (initialState, reducer) => {
       }
     }, [listener])
 
-    return [state, setState]
+    return [store, setStore]
   }
 }
 
