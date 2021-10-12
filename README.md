@@ -4,7 +4,7 @@ Simple hook for adding a global state to your react app.
 
 ### Installation
 
-It's a simple script just copy index.js and add it to your project.
+It's a simple script just copy createStore.js and add it to your project.
 
 ## Simple Pattern Usage
 
