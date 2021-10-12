@@ -70,7 +70,7 @@ import { useStore } from 'location of your store'
 const ReactComponent = () => {
   const [store, dispatch] = useStore()
 
-  const handleClick = () => dispatch({ type: 'SET_FOO', payload: 'FOO FOO' })
+  const handleClick = () => dispatch({ type: 'SET_FOO', payload: 'New Foo' })
 
   return (
     <button onClick={handleClick}>
