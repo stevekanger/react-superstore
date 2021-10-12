@@ -16,7 +16,7 @@ import createStore from 'location of the pasted script'
 export const useStore = createStore('hello')
 ```
 
-Consume in your react component.
+Consume in your react component and use just like reacts useState structure where the first value in the array is the stored state and the second value is the setting function. Setting function can be used just like reacts state setting function eg. `setState('newState')` or with the ability to see the previous state eg. `setState(state => 'something' + state)`
 
 ```js
 import { useStore } from 'location of your store'
@@ -24,7 +24,9 @@ import { useStore } from 'location of your store'
 const ReactComponent = () => {
   const [store, setStore] = useStore()
 
-  const handleClick = () => setStore('I was clicked')
+  const handleClick = () => {
+    setStore('I was clicked')
+  }
 
   return <button onClick={handleClick}>{store}</button>
 }
@@ -62,7 +64,7 @@ const reducer = (state = initialState, action) {
 export const useStore = createStore(initialState, reducer)
 ```
 
-Consume in your component.
+Consume in your component and use just like the simple example above but now you can use the second value as a dispatch to your reducer.
 
 ```js
 import { useStore } from 'location of your store'
@@ -101,7 +103,7 @@ In your react component you can do the following and your component will only re
 import { useStore } from 'location of your store'
 
 const ReactComponent = () => {
-  const [{ foo }, setStore] = useStore(['foo'])
+  const [{ foo }] = useStore(['foo'])
 
   return <p>{foo}</p>
 }
