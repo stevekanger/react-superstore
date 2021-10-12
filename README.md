@@ -101,9 +101,9 @@ In your react component you can do the following and your component will only re
 import { useStore } from 'location of your store'
 
 const ReactComponent = () => {
-  const [{ foo }] = useStore(['foo'])
+  const [store, setStore] = useStore(['foo'])
 
-  return <p>{foo}</p>
+  return <p>{store.foo}</p>
 }
 ```
 
