@@ -82,7 +82,7 @@ const ReactComponent = () => {
 
 ## Avoid Unwanted Re Renders
 
-The hook can accept a `null` value that will re render your component anytime a value in the store has changed. Or pass in an array of keys `['key1', 'key2']` and this will allow the component to re render only if one of these keys in the store object has changed (Only works if you have an object as your store). So if you have a complex store object you can pass an array of keys that you want to use in your component. Say you have the following store object.
+The hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in an array of keys `['key1', 'key2']` and this will allow the component to re render only if one of these keys in the store object has changed (Only works if you have an object as your store). So if you have a complex store object you can pass an array of keys that you want to use in your component. Say you have the following store object.
 
 ```js
 import createStore from 'location of the pasted script'
