@@ -8,7 +8,7 @@ It's a simple script just copy createStore.js and add it to your project.
 
 ## Simple Pattern Usage
 
-Create a simple store anywhere in your app.
+Create a simple store anywhere in your app and pass in an initial state.
 
 ```js
 import createStore from 'location of the pasted script'
