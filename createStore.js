@@ -24,6 +24,7 @@ const createStore = (initialState, reducer) => {
           return true
         }
       }
+
       return false
     }
 
