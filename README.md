@@ -54,7 +54,7 @@ const reducer = (state, action) {
 export const useCount = createStore(0, reducer)
 ```
 
-Consume in your component and use just like the simple example above but now you can use the second value as a dispatch to your reducer. The naming is not important you can call the setStore/dispatch function whatever you like. If you pass in a reducer it will use the reducer to set the store. If you don't pass a reducer it will set the store like normally like the above example.
+Consume in your component and use just like the simple example above but now you can use the second value as a dispatch to your reducer. The naming is not important you can call the setStore/dispatch function whatever you like. If you pass in a reducer it will use the reducer to set the store. If you don't pass a reducer it will set the store normally like the above example.
 
 ```js
 import { useCount } from 'location of your store'
