@@ -13,7 +13,7 @@ const createStore = (initialStore, reducer, passedActions) => {
     if (reducer) {
       store = reducer(store, action)
     } else {
-      store = action
+      store = isFn(action) ? action(store) : action
     }
     const checkKeys = (keys) => {
       if (!keys) return true
@@ -26,7 +26,7 @@ const createStore = (initialStore, reducer, passedActions) => {
     }
     if (store !== oldStore) {
       listeners.forEach(({ keys, fire }) => {
-        if (checkKeys(keys)) fire(store)
+        if (checkKeys(keys)) fire(() => store)
       })
     }
   }
