@@ -16,7 +16,7 @@ import createStore from 'location of the pasted script'
 export const useCount = createStore(0)
 ```
 
-Consume in your react component and use just like reacts useState structure where the first value in the array is the stored state and the second value is the setting function. Setting function can be used just like reacts state setting function eg. `setStore('newStore')`
+Consume in your react component and use just like reacts useState structure where the first value in the array is the stored state and the second value is the setting function.
 
 ```js
 import { useCount } from 'location of your store'
