@@ -75,14 +75,14 @@ const Counter = () => {
 
 ## Add actions to your store
 
-When creating your store you can pass an object with actions as the third argument if you want to decouple the actions from your components. The function will first pass the `(getStore, setStore)` functions to your action and then return your action function. If you pass in a reducer you can dispatch just like the before example.
+When creating your store you can pass an object with actions as the third argument if you want to decouple the actions from your components. The function will first pass the `(getStore, setStore)` functions to your action and then return your action function. If you pass in a reducer you can use the setStore function to dispatch to your reducer just like the before example.
 
 ```js
 import createStore from 'location of the pasted script'
 
-const increase = (getState, setState) => () => {
-  const count = getState()
-  setState(count + 1)
+const increase = (getCount, setCount) => () => {
+  const count = getCount()
+  setCount(count + 1)
 }
 
 export const useCount = createStore(initialState, null, { increase })
@@ -130,11 +130,11 @@ import { useStore } from 'location of your store'
 const ReactComponent = () => {
   const [store, setStore] = useStore(['foo'])
 
-  return <p>{store.foo}</p>
+  return <p>Foo: {store.foo}</p>
 }
 ```
 
-If you only need to dispatch to the store or set the store you can just pass an empty array `[]` to the hook and the component will never re render but you can still use the set/dispatch function or any of your passed actions.
+If you only need to set/dispatch to the store you can just pass an empty array `[]` to the hook and the component will never re render but you can still use the set/dispatch function or any of your passed actions.
 
 ```js
 import { useStore } from 'location of your store'
