@@ -109,7 +109,7 @@ const Counter = () => {
 
 ## Avoid Unwanted Re Renders
 
-The hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in an array of keys `['key1', 'key2']` and this will allow the component to re render only if one of these keys in the store object has changed (Only works if you have an object as your store). So if you have a complex store object you can pass an array of keys that you want to use in your component. Say you have the following store object.
+The hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in the object keys you want to use in your component in string format `('key1', 'key2')` and this will allow the component to re render only if one of these keys in the store object has changed (Only works if you have an object as your store). So if you have a complex store object you can control what keys your component re renders for. Say you have the following store object.
 
 ```js
 import createStore from 'location of the pasted script'
@@ -117,30 +117,35 @@ import createStore from 'location of the pasted script'
 const intialState = {
   foo: 'foo',
   bar: 'bar',
+  baz: 'baz',
 }
 
 export const useStore = createStore(initialState)
 ```
 
-In your react component you can do the following and your component will only re render if the foo value is changed.
+In your react component you can do the following and your component will only re render if the foo or bar values have changed. If the baz value changes your component will not re render.
 
 ```js
 import { useStore } from 'location of your store'
 
 const ReactComponent = () => {
-  const [store, setStore] = useStore(['foo'])
+  const [store, setStore] = useStore('foo', 'bar')
 
-  return <p>Foo: {store.foo}</p>
+  return (
+    <p>
+      Foo: {store.foo} Bar: {store.bar}
+    </p>
+  )
 }
 ```
 
-If you only need to set/dispatch to the store you can just pass an empty array `[]` to the hook and the component will never re render but you can still use the set/dispatch function or any of your passed actions.
+If you only need to set/dispatch to the store you can just pass an empty string `('')` to the hook and the component will never re render but you can still use the set/dispatch function or any of your passed actions.
 
 ```js
 import { useStore } from 'location of your store'
 
 const ReactComponent = () => {
-  const [, setFoo] = useStore([])
+  const [, setFoo] = useStore('')
 
   return <button onClick={() => setFoo('New Foo')}>Set Foo</button>
 }

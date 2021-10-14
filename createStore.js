@@ -16,7 +16,7 @@ const createStore = (initialStore, reducer, passedActions) => {
       store = isFn(action) ? action(store) : action
     }
     const checkKeys = (keys) => {
-      if (!keys) return true
+      if (keys.length === 0) return true
       for (let i = 0; i < keys.length; i++) {
         if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
           return true
@@ -45,7 +45,7 @@ const createStore = (initialStore, reducer, passedActions) => {
 
   const actions = createActions()
 
-  return (keys) => {
+  return (...keys) => {
     const listener = {
       keys,
       fire: useState()[1],
