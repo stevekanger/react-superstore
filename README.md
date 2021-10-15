@@ -75,12 +75,12 @@ const Counter = () => {
 
 ## Add actions to your store
 
-When creating your store you can pass an object with actions as the third argument if you want to decouple the actions from your components. The function will first pass the `(getStore, setStore)` functions to your action and then return your action function. If you pass in a reducer you can use the setStore function to dispatch to your reducer just like the before example.
+When creating your store you can pass an object with actions as the third argument if you want to decouple the actions from your components. The function will first pass the `(setStore, getStore)` functions to your action and then return your action function. If you pass in a reducer you can use the setStore function to dispatch to your reducer just like the before example.
 
 ```js
 import createStore from 'location of the pasted script'
 
-const increase = (getCount, setCount) => () => {
+const increase = (setCount, getCount) => () => {
   const count = getCount()
   setCount(count + 1)
 }
