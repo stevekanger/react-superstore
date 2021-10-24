@@ -6,9 +6,11 @@ const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 const checkKeys = (keys, store, oldStore) => {
   if (keys.length === 0) return true
 
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
-      return true
+  if (typeof store === 'object') {
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
+        return true
+      }
     }
   }
 
