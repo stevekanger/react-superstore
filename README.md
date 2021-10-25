@@ -1,4 +1,4 @@
-# React Global State Hook
+# React Global Store Hook
 
 Simple hook for adding a global state to your react app.
 
