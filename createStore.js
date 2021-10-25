@@ -57,7 +57,7 @@ const createStore = (initialStore, reducer, initialActions) => {
 
   const actions = createActions(initialActions, setStore, getStore)
 
-  return (...keys) => {
+  const useStore = (...keys) => {
     const [, fire] = useState()
     const listener = {
       keys,
@@ -73,6 +73,8 @@ const createStore = (initialStore, reducer, initialActions) => {
 
     return [store, setStore, actions]
   }
+
+  return useStore
 }
 
 export default createStore
