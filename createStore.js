@@ -4,9 +4,9 @@ const isFn = (fn) => typeof fn === 'function'
 const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 const checkKeys = (keys, store, oldStore) => {
-  if (keys.length === 0) return true
+  if (keys.length < 1) return true
 
-  if (typeof store === 'object') {
+  if (typeof store === 'object' && keys.length > 0) {
     for (let i = 0; i < keys.length; i++) {
       if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
         return true
