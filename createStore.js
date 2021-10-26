@@ -1,16 +1,16 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 
-const isFn = (fn) => typeof fn === 'function'
 const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
+const isFn = (fn) => typeof fn === 'function'
+const isObject = (obj) => typeof obj === 'object' && obj != null
 
 const checkKeys = (keys, store, oldStore) => {
   if (keys.length < 1) return true
+  if (!isObject(store) || !isObject(oldStore)) return true
 
-  if (typeof store === 'object' && keys.length > 0) {
-    for (let i = 0; i < keys.length; i++) {
-      if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
-        return true
-      }
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
+      return true
     }
   }
 
