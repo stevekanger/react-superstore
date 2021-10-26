@@ -59,17 +59,16 @@ const createStore = (initialStore, reducer, initialActions) => {
 
   const useStore = (...keys) => {
     const [, fire] = useState()
-    const listener = {
-      keys,
-      fire,
-    }
-
     effect(() => {
+      const listener = {
+        keys,
+        fire,
+      }
       listeners.add(listener)
       return () => {
         listeners.delete(listener)
       }
-    }, [listener])
+    }, [])
 
     return [store, setStore, actions]
   }
