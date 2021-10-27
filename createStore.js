@@ -20,7 +20,7 @@ const checkKeys = (keys, store, oldStore) => {
 const createActions = (actions, setStore, getStore) => {
   const mappedActions = {}
 
-  if (actions) {
+  if (actions && isObject(actions)) {
     Object.keys(actions).forEach((key) => {
       if (isFn(actions[key])) {
         mappedActions[key] = actions[key](setStore, getStore)
