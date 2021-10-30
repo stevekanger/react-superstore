@@ -2,62 +2,56 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 
 const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 const isFn = (fn) => typeof fn === 'function'
-const isObject = (obj) => typeof obj === 'object' && obj != null
 
 const checkKeys = (keys, store, oldStore) => {
-  if (keys.length < 1 || !isObject(store) || !isObject(oldStore)) return true
+  if (keys.length < 1) return true
 
   for (let i = 0; i < keys.length; i++) {
-    if (keys[i] in store && store[keys[i]] !== oldStore[keys[i]]) {
-      return true
-    }
+    if (store[keys[i]] !== oldStore[keys[i]]) return true
   }
 
   return false
 }
 
-const createActions = (actions, setStore, getStore) => {
+const mapActions = (actions = {}, dispatch, getStore) => {
   const mappedActions = {}
 
-  if (actions && isObject(actions)) {
-    Object.keys(actions).forEach((key) => {
-      if (isFn(actions[key])) {
-        mappedActions[key] = actions[key](setStore, getStore)
-      }
-    })
-  }
+  Object.keys(actions).forEach((key) => {
+    if (isFn(actions[key])) {
+      mappedActions[key] = actions[key](dispatch, getStore)
+    }
+  })
 
   return mappedActions
 }
 
-const createStore = (initialStore, reducer, initialActions) => {
+const createStore = (initialStore, reducer, actions) => {
   let store = initialStore
   const listeners = new Set()
 
-  const setStore = (newStore) => {
+  const getStore = () => store
+
+  const dispatch = (action) => {
     let oldStore = store
 
     if (reducer) {
-      store = reducer(store, newStore)
+      store = reducer(store, action)
     } else {
-      store = isFn(newStore) ? newStore(store) : newStore
+      store = isFn(action) ? action(store) : action
     }
 
-    if (store !== oldStore) {
-      listeners.forEach(({ keys, fire }) => {
-        if (checkKeys(keys, store, oldStore)) {
-          fire(() => store)
-        }
-      })
-    }
+    if (store === oldStore) return
+
+    listeners.forEach(({ keys, fire }) => {
+      if (checkKeys(keys, store, oldStore)) fire(() => store)
+    })
   }
 
-  const getStore = () => store
-
-  const actions = createActions(initialActions, setStore, getStore)
+  const mappedActions = mapActions(actions, dispatch, getStore)
 
   const useStore = (...keys) => {
     const [, fire] = useState()
+
     effect(() => {
       const listener = {
         keys,
@@ -69,7 +63,7 @@ const createStore = (initialStore, reducer, initialActions) => {
       }
     }, [])
 
-    return [store, setStore, actions]
+    return [store, dispatch, mappedActions]
   }
 
   return useStore
