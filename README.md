@@ -91,7 +91,7 @@ const Counter = () => {
 
 ## Avoid Unwanted Re Renders
 
-The `useStore` hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in the object keys you want to use in your component in string format `('key1', 'key2')` and this will allow the component to re render only if one of these keys in the store object has changed <b>Only works if you have an object as your store</b>. So if you have a complex store object you can control what keys your component re renders for. Say you have the following store object.
+The `useStore` hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in the object keys you want to use in your component in string format `('key1', 'key2')` and this will allow the component to re render only if one of these keys in the store object has changed <b>(Only works if you have an object as your store)</b>. So if you have a complex store object you can control what keys your component re renders for. Say you have the following store object.
 
 ```js
 import createStore from 'location of the pasted script'
