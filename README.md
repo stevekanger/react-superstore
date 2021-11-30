@@ -24,7 +24,7 @@ import createStore from 'location of the pasted script'
 export const { useStore, dispatch } = createStore(0)
 ```
 
-Or destructure to call the functions whatever you like.
+Or rename the returned functions to call the functions whatever you like.
 
 ```js
 import createStore from 'location of the pasted script'
