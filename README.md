@@ -14,7 +14,7 @@ Create a simple store anywhere in your app and pass in an initial state as the f
 
 2. `getStore()` which can be used anywhere in your app to get the store value.
 
-3. `dispatch()` which sets the store and can also be used anywhere in your app. You can use this to set the store directly just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`.
+3. `dispatch()` which sets the store and can also be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`.
 
 Lets show some examples. We will make a simple counter.
 
