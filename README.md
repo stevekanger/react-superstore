@@ -10,7 +10,7 @@ It's a simple script just copy createStore.js and add it to your project.
 
 Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. The `createStore` function returns 3 functions:
 
-1. `useStore` which is to be used in your react component to use the store value. This is the function that will re render your component. <b>This is a react hook and will need to be used in a react component.</b>
+1. `useStore` which is to be used in your react component to use the store value. This is the function that will re render your component when the store value changes. <b>This is a react hook and will need to be used in a react component.</b>
 
 2. `getStore` which can be used anywhere in your app to get the store value.
 
