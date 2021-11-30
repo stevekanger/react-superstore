@@ -73,12 +73,12 @@ export const { useStore: useCount, dispatch: dispatchCount} = createStore(0, red
 Consume in your component and use just like the simple example above but now you will use the reducer when you call your `dispatch` function.
 
 ```js
-import { useCount } from 'location of your store'
+import { useCount, dispatchCount } from 'location of your store'
 
 const Counter = () => {
   const count = useCount()
 
-  const handleClick = () => dispatch({ type: 'INCREASE' })
+  const handleClick = () => dispatchCount({ type: 'INCREASE' })
 
   return (
     <>
