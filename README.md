@@ -58,12 +58,12 @@ You can pass a reducer as the second argument in your `createStore` function and
 ```js
 import createStore from 'location of the pasted script'
 
-const reducer = (state, action) {
+const reducer = (store, action) {
   switch(action.type){
     case 'INCREASE':
-      return state + 1
+      return store + 1
     default:
-      return state
+      return store
   }
 }
 
