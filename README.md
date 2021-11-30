@@ -8,13 +8,13 @@ It's a simple script just copy createStore.js and add it to your project.
 
 ## Simple Pattern Usage
 
-Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. The `createStore` function returns 3 functions:
+Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. You can create as many instances as you like. The `createStore` function returns 3 functions:
 
-1. `useStore` which is to be used in your react component to use the store value. This is the function that will re render your component when the store value changes. <b>This is a react hook and will need to be used in a react component.</b>
+1. `useStore()` which is to be used in your react component to use the store value. This is the function that will re render your component when the store value changes. <b>This is a react hook and will need to be used in a react component.</b>
 
-2. `getStore` which can be used anywhere in your app to get the store value.
+2. `getStore()` which can be used anywhere in your app to get the store value.
 
-3. `dispatch` which sets the store and can also be used anywhere in your app. You can use this to set the store directly just like reacts `setState` it can be used like `dispatch(newStore)` or to get the oldstore pass in a function and return the new store `dispatch(oldStore => oldstore + newStore)`.
+3. `dispatch()` which sets the store and can also be used anywhere in your app. You can use this to set the store directly just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`.
 
 Lets show some examples. We will make a simple counter.
 
