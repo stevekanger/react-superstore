@@ -13,26 +13,14 @@ const checkKeys = (keys, store, oldStore) => {
   return false
 }
 
-const mapActions = (actions = {}, dispatch, getStore) => {
-  const mappedActions = {}
-
-  Object.keys(actions).forEach((key) => {
-    if (isFn(actions[key])) {
-      mappedActions[key] = actions[key](dispatch, getStore)
-    }
-  })
-
-  return mappedActions
-}
-
-const createStore = (initialStore, reducer, actions) => {
+const createStore = (initialStore, reducer) => {
   let store = initialStore
   const listeners = new Set()
 
   const getStore = () => store
 
   const dispatch = (action) => {
-    let oldStore = store
+    const oldStore = store
 
     if (reducer) {
       store = reducer(store, action)
@@ -46,8 +34,6 @@ const createStore = (initialStore, reducer, actions) => {
       if (checkKeys(keys, store, oldStore)) fire(() => store)
     })
   }
-
-  const mappedActions = mapActions(actions, dispatch, getStore)
 
   const useStore = (...keys) => {
     const [, fire] = useState()
@@ -63,10 +49,10 @@ const createStore = (initialStore, reducer, actions) => {
       }
     }, [])
 
-    return [store, dispatch, mappedActions]
+    return store
   }
 
-  return useStore
+  return { useStore, getStore, dispatch }
 }
 
 export default createStore

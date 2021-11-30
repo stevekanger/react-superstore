@@ -8,21 +8,37 @@ It's a simple script just copy createStore.js and add it to your project.
 
 ## Simple Pattern Usage
 
-Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. Create as many instances you like. For the examples we will make a simple counter.
+Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. The `createStore` function returns 3 functions:
+
+1. `useStore` which is to be used in your react component to use the store value. This is the function that will re render your component. <b>This is a react hook and will need to be used in a react component.</b>
+
+2. `getStore` which can be used anywhere in your app to get the store value.
+
+3. `dispatch` which sets the store and can also be used anywhere in your app. You can use this to set the store directly just like reacts `setState` it can be used like `dispatch(newStore)` or to get the oldstore pass in a function and return the new store `dispatch(oldStore => oldstore + newStore)`.
+
+Lets show some examples. We will make a simple counter.
 
 ```js
 import createStore from 'location of the pasted script'
 
-export const useCount = createStore(0)
+export const { useStore, dispatch } = createStore(0)
 ```
 
-Consume in your react component and use just like reacts useState structure where the first value in the array is the stored state and the second value is the setting function. The setting function can be used just like in react. You can set the store directly like `setCount(2)` or if you pass a function it will return the previous store and you can return the new store like `setCount(count => count + 1)`.
+Or destructure to call the functions whatever you like.
 
 ```js
-import { useCount } from 'location of your store'
+import createStore from 'location of the pasted script'
+
+export const { useStore: useCount, dispatch: setCount } = createStore(0)
+```
+
+Consume in your react component.
+
+```js
+import { useCount, setCount } from 'location of your store'
 
 const Counter = () => {
-  const [count, setCount] = useCount()
+  const count = useCount()
 
   const handleClick = () => setCount(count + 1)
 
@@ -37,7 +53,7 @@ const Counter = () => {
 
 ## Reducer Pattern Usage
 
-Create a store and a reducer. Pass the reducer as the second argument in your createStore function.
+You can pass a reducer as the second argument in your `createStore` function and then the `dispatch` funciton will use the reducer to set the store.
 
 ```js
 import createStore from 'location of the pasted script'
@@ -51,16 +67,16 @@ const reducer = (state, action) {
   }
 }
 
-export const useCount = createStore(0, reducer)
+export const { useStore: useCount, dispatch: dispatchCount} = createStore(0, reducer)
 ```
 
-Consume in your component and use just like the simple example above but now you can use the second value as a dispatch to your reducer. The naming is not important you can call the setStore/dispatch function whatever you like. If you pass in a reducer it will use the reducer to set the store. If you don't pass a reducer it will set the store normally like the above example.
+Consume in your component and use just like the simple example above but now you will use the reducer when you call your `dispatch` function.
 
 ```js
 import { useCount } from 'location of your store'
 
 const Counter = () => {
-  const [count, dispatch] = useCount()
+  const count = useCount()
 
   const handleClick = () => dispatch({ type: 'INCREASE' })
 
@@ -73,43 +89,9 @@ const Counter = () => {
 }
 ```
 
-## Add actions to your store
-
-When creating your store you can pass an object with actions as the third argument if you want to decouple the actions from your components. The function will first pass the `(setStore, getStore)` functions to your action and then return your action function. If you pass in a reducer you can use the setStore function to dispatch to your reducer just like the before example. <b>Note: the `setStore` function will be passed before the `getStore` function to your action because it is used more often.</b>
-
-```js
-import createStore from 'location of the pasted script'
-
-const increase = (setCount, getCount) => () => {
-  const count = getCount()
-  setCount(count + 1)
-}
-
-export const useCount = createStore(initialState, null, { increase })
-```
-
-Then consume in your component just like the examples before but now the third value in the array is your actions.
-
-```js
-import { useCount } from 'location of your store'
-
-const Counter = () => {
-  const [count, , actions] = useCount()
-
-  const handleClick = () => actions.increase()
-
-  return (
-    <>
-      <p>Count: {count}</p>
-      <button onClick={handleClick}>+</button>
-    </>
-  )
-}
-```
-
 ## Avoid Unwanted Re Renders
 
-The hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in the object keys you want to use in your component in string format `('key1', 'key2')` and this will allow the component to re render only if one of these keys in the store object has changed (Only works if you have an object as your store). So if you have a complex store object you can control what keys your component re renders for. Say you have the following store object.
+The `useStore` hook can accept an empty or `null` value that will re render your component anytime a value in the store has changed. Or pass in the object keys you want to use in your component in string format `('key1', 'key2')` and this will allow the component to re render only if one of these keys in the store object has changed (Only works if you have an object as your store). So if you have a complex store object you can control what keys your component re renders for. Say you have the following store object.
 
 ```js
 import createStore from 'location of the pasted script'
@@ -120,7 +102,7 @@ const intialState = {
   baz: 'baz',
 }
 
-export const useStore = createStore(initialState)
+export const { useStore } = createStore(initialState)
 ```
 
 In your react component you can do the following and your component will only re render if the foo or bar values have changed. If the baz value changes your component will not re render.
@@ -129,25 +111,13 @@ In your react component you can do the following and your component will only re
 import { useStore } from 'location of your store'
 
 const ReactComponent = () => {
-  const [store, setStore] = useStore('foo', 'bar')
+  const store = useStore('foo', 'bar')
 
   return (
     <p>
       Foo: {store.foo} Bar: {store.bar}
     </p>
   )
-}
-```
-
-If you only need to set/dispatch to the store you can just pass an empty string `('')` to the hook and the component will never re render but you can still use the set/dispatch function or any of your passed actions.
-
-```js
-import { useStore } from 'location of your store'
-
-const ReactComponent = () => {
-  const [, setFoo] = useStore('')
-
-  return <button onClick={() => setFoo('New Foo')}>Set Foo</button>
 }
 ```
 
