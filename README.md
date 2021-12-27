@@ -8,28 +8,22 @@ It's a simple script just copy createStore.js and add it to your project.
 
 ## Simple Pattern Usage
 
-Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. You can create as many instances as you like. The `createStore` function returns 3 functions:
+Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. You can create as many instances as you like. The `createStore` function returns 3 functions in an array:
 
 1. `useStore()` which is to be used in your react component to use the store value. This is the function that will re render your component when the store value changes. <b>This is a react hook and will need to be used in a react component.</b>
 
-2. `getStore()` which can be used anywhere in your app to get the store value.
+2. `dispatch()` which sets the store and can also be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`.
 
-3. `dispatch()` which sets the store and can also be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`.
+3. `getStore()` which can be used anywhere in your app to get the store value.
 
 Lets show some examples. We will make a simple counter.
 
-```js
-import createStore from 'location of the pasted script'
-
-export const { useStore, dispatch } = createStore(0)
-```
-
-Or rename the returned functions to call the functions whatever you like.
+The function returns an array of the 3 functions so you can destructure them and call them whatever you like. In this case we will extract the useStore, dispatch and getStore functions and call them useCount, setCount and getCount.
 
 ```js
 import createStore from 'location of the pasted script'
 
-export const { useStore: useCount, dispatch: setCount } = createStore(0)
+export const [useCount, setCount, getCount] = createStore(0)
 ```
 
 Consume in your react component.
@@ -67,7 +61,7 @@ const reducer = (store, action) {
   }
 }
 
-export const { useStore: useCount, dispatch: dispatchCount} = createStore(0, reducer)
+export const [ useCount, dispatchCount ] = createStore(0, reducer)
 ```
 
 Consume in your component and use just like the simple example above but now you will use the reducer when you call your `dispatch` function.
@@ -102,7 +96,7 @@ const intialState = {
   baz: 'baz',
 }
 
-export const { useStore } = createStore(initialState)
+export const [useStore] = createStore(initialState)
 ```
 
 In your react component you can do the following and your component will only re render if the foo or bar values have changed. If the baz value changes your component will not re render.

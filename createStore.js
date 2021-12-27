@@ -52,7 +52,7 @@ const createStore = (initialStore, reducer) => {
     return store
   }
 
-  return { useStore, getStore, dispatch }
+  return [useStore, dispatch, getStore]
 }
 
 export default createStore
