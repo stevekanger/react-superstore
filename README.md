@@ -20,6 +20,8 @@ Lets show some examples. We will make a simple counter.
 
 The function returns an array of the 3 functions so you can destructure them and call them whatever you like. In this case we will extract the useStore, dispatch and getStore functions and call them useCount, setCount and getCount.
 
+Create a store somewhere in your app.
+
 ```js
 import createStore from 'location of the pasted script'
 
