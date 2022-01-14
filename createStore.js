@@ -41,18 +41,18 @@ const createStore = (initialStore, reducer) => {
     const [, updater] = useState()
     const state = mapState(store)
 
-    const listener = {
-      updater,
-      state,
-      mapState,
-    }
-
     effect(() => {
+      const listener = {
+        updater,
+        state,
+        mapState,
+      }
+
       listeners.add(listener)
       return () => {
         listeners.delete(listener)
       }
-    }, [listener])
+    }, [state, mapState])
 
     return state
   }
