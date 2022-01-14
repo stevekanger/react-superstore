@@ -2,15 +2,20 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 
 const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 const isFn = (fn) => typeof fn === 'function'
+const isObj = (obj) =>
+  typeof obj === 'object' && typeof obj !== 'function' && obj !== null
 
-const checkKeys = (keys, store, oldStore) => {
-  if (keys.length < 1) return true
+const shouldRender = (state, newState) => {
+  if (state === newState) return false
 
-  for (let i = 0; i < keys.length; i++) {
-    if (store[keys[i]] !== oldStore[keys[i]]) return true
+  if (isObj(state) && isObj(newState)) {
+    for (let key in newState) {
+      if (state[key] !== newState[key]) return true
+    }
+    return false
   }
 
-  return false
+  return true
 }
 
 const createStore = (initialStore, reducer) => {
@@ -20,36 +25,36 @@ const createStore = (initialStore, reducer) => {
   const getStore = () => store
 
   const dispatch = (action) => {
-    const oldStore = store
-
     if (reducer) {
       store = reducer(store, action)
     } else {
       store = isFn(action) ? action(store) : action
     }
 
-    if (store === oldStore) return
-
-    listeners.forEach(({ keys, fire }) => {
-      if (checkKeys(keys, store, oldStore)) fire(() => store)
+    listeners.forEach(({ state, mapState, updater }) => {
+      const newState = mapState(store)
+      if (shouldRender(state, newState)) updater(() => newState)
     })
   }
 
-  const useStore = (...keys) => {
-    const [, fire] = useState()
+  const useStore = (mapState = (store) => store) => {
+    const [, updater] = useState()
+    const state = mapState(store)
+
+    const listener = {
+      updater,
+      state,
+      mapState,
+    }
 
     effect(() => {
-      const listener = {
-        keys,
-        fire,
-      }
       listeners.add(listener)
       return () => {
         listeners.delete(listener)
       }
-    }, [])
+    }, [listener])
 
-    return store
+    return state
   }
 
   return [useStore, dispatch, getStore]
