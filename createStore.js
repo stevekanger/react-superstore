@@ -5,7 +5,7 @@ const isFn = (fn) => typeof fn === 'function'
 const isObj = (obj) =>
   typeof obj === 'object' && typeof obj !== 'function' && obj !== null
 
-const shouldRender = (state, newState) => {
+const shouldUpdate = (state, newState) => {
   if (state === newState) return false
 
   if (isObj(state) && isObj(newState)) {
@@ -33,7 +33,7 @@ const createStore = (initialStore, reducer) => {
 
     listeners.forEach(({ state, mapState, updater }) => {
       const newState = mapState(store)
-      if (shouldRender(state, newState)) updater(() => newState)
+      if (shouldUpdate(state, newState)) updater(() => newState)
     })
   }
 
