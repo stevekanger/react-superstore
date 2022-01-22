@@ -3,7 +3,10 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 const effect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 const isFn = (fn) => typeof fn === 'function'
 const isObj = (obj) =>
-  typeof obj === 'object' && typeof obj !== 'function' && obj !== null
+  typeof obj === 'object' &&
+  typeof obj !== 'function' &&
+  !Array.isArray(obj) &&
+  obj !== null
 
 const shouldUpdate = (state, newState) => {
   if (state === newState) return false
