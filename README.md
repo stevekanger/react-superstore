@@ -6,15 +6,17 @@ Simple hook for adding a global state to your react app.
 
 It's a simple script just copy createStore.js and add it to your project.
 
-## Simple Pattern Usage
+## Usage
 
-Create a simple store anywhere in your app and pass in an initial state as the first argument in your createStore function. You can create as many instances as you like. The `createStore` function returns 3 functions in an array:
+Create a store anywhere in your app and pass in an initial state as the first argument in your createStore function and an optional reducer as the second argument. You can create as many instances as you like. The `createStore` function returns 3 functions in an array `[useStore, dispatch, getStore]`:
 
 1. `useStore()` which is to be used in your react component to use the store value. This is the function that will re-render your component when the store value changes <b>This is a react hook and will need to be used in a react component.</b>
 
-2. `dispatch()` which sets the store and can also be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`.
+2. `dispatch()` which sets the store and can also be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`. If you pass a reducer then the reducer will be used to set the state instead.
 
 3. `getStore()` which can be used anywhere in your app to get the store value.
+
+## Simple Pattern Usage
 
 Lets show some examples. We will make a simple counter.
 
