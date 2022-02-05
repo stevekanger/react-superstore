@@ -12,7 +12,7 @@ Create a store anywhere in your app and pass in an initial state as the first ar
 
 1. `useStore()` which is to be used in your react component to use the store value. This is the function that will re-render your component when the store value changes <b>This is a react hook and will need to be used in a react component.</b>
 
-2. `dispatch()` which sets the store and can be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`. If you pass a reducer then the reducer will be used to set the store instead.
+2. `dispatch()` which sets the store and can be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`. If you pass in a reducer then the reducer will be used to set the store instead.
 
 3. `getStore()` which can be used anywhere in your app to get the store value.
 
