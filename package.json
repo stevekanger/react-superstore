@@ -1,12 +1,13 @@
 {
   "name": "react-gsh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple hook to create global state in react",
   "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "tsc --build --clean && tsc",
