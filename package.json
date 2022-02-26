@@ -1,0 +1,27 @@
+{
+  "name": "react-hooks-store",
+  "version": "1.0.0",
+  "description": "Simple hook to create global state in react",
+  "keywords": [],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build --clean && tsc",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "typescript": "^4.5.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "repository": "https://github.com/SteveKanger/react-hooks-store.git",
+  "homepage": "https://github.com/SteveKanger/react-hooks-store.git@readme",
+  "author": "SteveKanger <hi.stevekanger@gmail.com>",
+  "license": "MIT",
+  "private": false
+}

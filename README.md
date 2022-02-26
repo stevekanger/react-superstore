@@ -1,10 +1,12 @@
-# React Global Store Hook
+# React Hooks Store
 
-Simple hook for adding a global state to your react app.
+Simple hook for adding and managing global state in your react app.
 
 ### Installation
 
-It's a simple script just copy createStore.js and add it to your project.
+```bash
+npm install react-hooks-store
+```
 
 ## Usage
 
@@ -25,7 +27,7 @@ The function returns an array of the 3 functions so you can destructure them and
 Create a store somewhere in your app.
 
 ```js
-import createStore from 'location of the pasted script'
+import createStore from 'react-hooks-store'
 
 export const [useCount, setCount, getCount] = createStore(0)
 ```
@@ -54,7 +56,7 @@ const Counter = () => {
 You can pass a reducer as the second argument in your `createStore` function and then the `dispatch` funciton will use the reducer to set the store.
 
 ```js
-import createStore from 'location of the pasted script'
+import createStore from 'react-hooks-store'
 
 const reducer = (store, action) {
   switch(action.type){
@@ -92,7 +94,7 @@ const Counter = () => {
 By default the `useStore()` hook returns then entire store and shallow compares the keys of the store on dispatch. You can pass in a function to return only the values that you want to use in your component. The function should include one argument that will give you the store value and then you should return the values that you want to use. Eg. `const foo = useStore(store => store.foo)`. Consider the following example.
 
 ```js
-import createStore from 'location of the pasted script'
+import createStore from 'react-hooks-store'
 
 const intialStore = {
   foo: 'foo',
