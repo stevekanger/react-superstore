@@ -1,5 +1,5 @@
 {
-  "name": "react-hooks-store",
+  "name": "react-gsh",
   "version": "1.0.0",
   "description": "Simple hook to create global state in react",
   "keywords": [],
@@ -19,8 +19,8 @@
   "peerDependencies": {
     "react": ">=16.8.0"
   },
-  "repository": "https://github.com/SteveKanger/react-hooks-store.git",
-  "homepage": "https://github.com/SteveKanger/react-hooks-store.git@readme",
+  "repository": "https://github.com/SteveKanger/react-gsh.git",
+  "homepage": "https://github.com/SteveKanger/react-gsh.git@readme",
   "author": "SteveKanger <hi.stevekanger@gmail.com>",
   "license": "MIT",
   "private": false

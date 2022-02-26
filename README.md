@@ -1,11 +1,11 @@
-# React Hooks Store
+# React Global State Hook
 
 Simple hook for adding and managing global state in your react app.
 
 ### Installation
 
 ```bash
-npm install react-hooks-store
+npm install react-gsh
 ```
 
 ## Usage
