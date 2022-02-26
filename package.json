@@ -20,7 +20,7 @@
     "react": ">=16.8.0"
   },
   "repository": "https://github.com/SteveKanger/react-gsh.git",
-  "homepage": "https://github.com/SteveKanger/react-gsh.git@readme",
+  "homepage": "https://github.com/SteveKanger/react-gsh.git#readme",
   "author": "SteveKanger <hi.stevekanger@gmail.com>",
   "license": "MIT",
   "private": false
