@@ -1,4 +1,4 @@
-# React Global State Hook - React Hstore
+# React hStore - A React Global State Hook
 
 Simple hook for adding and managing global state in your react app.
 
