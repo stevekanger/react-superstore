@@ -1,8 +1,14 @@
 {
   "name": "react-hstore",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple hook to create global state in react",
-  "keywords": [],
+  "keywords": [
+    "react",
+    "global",
+    "state",
+    "hook",
+    "store"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

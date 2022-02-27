@@ -1,4 +1,4 @@
-# React Global State Hook
+# React Global State Hook - React Hstore
 
 Simple hook for adding and managing global state in your react app.
 
@@ -12,7 +12,7 @@ npm install react-hstore
 
 Create a store anywhere in your app and pass in an initial state as the first argument in your createStore function and an optional reducer as the second argument. You can create as many instances as you like. The `createStore` function returns 3 functions in an array `[useStore, dispatch, getStore]`:
 
-1. `useStore()` which is to be used in your react component to use the store value. This is the function that will re-render your component when the store value changes <b>This is a react hook and will need to be used in a react component.</b>
+1. `useStore()` which is to be used in your react component to use the store value. This is the function that will re-render your component when the store value changes <b>This is a react hook and will need to be used in a react function component.</b>
 
 2. `dispatch()` which sets the store and can be used anywhere in your app. This can be used just like reacts `setState`. You can set the store directly like `dispatch(newStore)` or pass a function that has the current store value as an argument and return your new store value to set it `dispatch(currentStore => currentStore + 1)`. If you pass in a reducer then the reducer will be used to set the store instead.
 
