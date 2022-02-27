@@ -1,6 +1,6 @@
 {
   "name": "react-gsh",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simple hook to create global state in react",
   "keywords": [],
   "main": "dist/index.js",
@@ -10,7 +10,8 @@
     "src"
   ],
   "scripts": {
-    "build": "tsc --build --clean && tsc",
+    "clean": "tsc --build --clean",
+    "build": "tsc",
     "prepare": "npm run build"
   },
   "devDependencies": {
@@ -20,8 +21,8 @@
   "peerDependencies": {
     "react": ">=16.8.0"
   },
-  "repository": "https://github.com/SteveKanger/react-gsh.git",
-  "homepage": "https://github.com/SteveKanger/react-gsh.git#readme",
+  "repository": "https://github.com/stevekanger/react-gsh.git",
+  "homepage": "https://github.com/stevekanger/react-gsh.git#readme",
   "author": "SteveKanger <hi.stevekanger@gmail.com>",
   "license": "MIT",
   "private": false
