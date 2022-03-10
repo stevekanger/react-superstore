@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import shouldUpdate from './etc/shouldUpdate'
-import isFn from './etc/isFn'
-import useAvailableEffect from './etc/useAvailableEffect'
+import shouldUpdate from './utils/shouldUpdate'
+import isFn from './utils/isFn'
+import useAvailableEffect from './utils/useAvailableEffect'
 
 type Store = any
 
