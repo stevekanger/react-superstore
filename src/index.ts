@@ -10,7 +10,6 @@ type Reducer = (store: Store, action: any) => void
 type Listener = {
   mapState: (store: any) => any
   updater: React.Dispatch<React.SetStateAction<any>>
-  state: any
 }
 
 type ReturnedFunctions = [
@@ -29,26 +28,27 @@ const createStore = (
   const getStore = () => store
 
   const dispatch = (action: any) => {
+    const oldStore = store
+
     if (reducer) {
       store = reducer(store, action)
     } else {
       store = isFn(action) ? action(store) : action
     }
 
-    listeners.forEach(({ state, mapState, updater }) => {
+    listeners.forEach(({ mapState, updater }) => {
+      const oldState = mapState(oldStore)
       const newState = mapState(store)
-      if (shouldUpdate(state, newState)) updater(() => newState)
+      if (shouldUpdate(oldState, newState)) updater(() => newState)
     })
   }
 
   const useStore = (mapState = (store: Store) => store) => {
     const [, updater] = useState()
-    const state = mapState(store)
 
     useAvailableEffect(() => {
       const listener = {
         updater,
-        state,
         mapState,
       }
 
@@ -56,9 +56,9 @@ const createStore = (
       return () => {
         listeners.delete(listener)
       }
-    }, [state, mapState])
+    }, [mapState])
 
-    return state
+    return mapState(store)
   }
 
   return [useStore, dispatch, getStore]
