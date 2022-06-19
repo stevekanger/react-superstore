@@ -1,6 +1,6 @@
 {
-  "name": "react-hstore",
-  "version": "0.0.7",
+  "name": "react-superstore",
+  "version": "0.0.1",
   "description": "Simple hook to create global state in react",
   "keywords": [
     "react",
@@ -27,8 +27,8 @@
   "peerDependencies": {
     "react": ">=16.8.0"
   },
-  "repository": "https://github.com/stevekanger/react-hstore.git",
-  "homepage": "https://github.com/stevekanger/react-hstore.git#readme",
+  "repository": "https://github.com/stevekanger/react-superstore.git",
+  "homepage": "https://github.com/stevekanger/react-superstore.git#readme",
   "author": "SteveKanger <hi.stevekanger@gmail.com>",
   "license": "MIT",
   "private": false
