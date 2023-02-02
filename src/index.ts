@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import shouldUpdate from './utils/shouldUpdate'
 import isFn from './utils/isFn'
-import useAvailableEffect from './utils/useAvailableEffect'
 
 type Store = any
 
@@ -46,7 +45,7 @@ const createStore = (
   const useStore = (mapState = (store: Store) => store) => {
     const [, updater] = useState()
 
-    useAvailableEffect(() => {
+    useEffect(() => {
       const listener = {
         updater,
         mapState,
