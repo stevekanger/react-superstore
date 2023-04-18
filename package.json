@@ -1,6 +1,6 @@
 {
   "name": "react-superstore",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Simple hook to create global state in react",
   "keywords": [
     "react",
@@ -29,7 +29,7 @@
   },
   "repository": "https://github.com/stevekanger/react-superstore.git",
   "homepage": "https://github.com/stevekanger/react-superstore.git#readme",
-  "author": "SteveKanger <hi.stevekanger@gmail.com>",
+  "author": "Steve Kanger",
   "license": "MIT",
   "private": false
 }
