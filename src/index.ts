@@ -2,36 +2,29 @@ import { useState, useEffect } from 'react'
 import shouldUpdate from './utils/shouldUpdate'
 import isFn from './utils/isFn'
 
-type Store = any
+type Reducer<TStore> = <TAction>(store: TStore, action: TAction) => TStore
 
-type Reducer = (store: Store, action: any) => void
-
-type Listener = {
-  mapState: (store: any) => any
-  updater: React.Dispatch<React.SetStateAction<any>>
+type Listener<TStore> = {
+  mapState: (store: TStore) => TStore
+  updater: React.Dispatch<React.SetStateAction<TStore>>
 }
 
-type ReturnedFunctions = [
-  (store?: Store) => any,
-  (action: any) => void,
-  () => Store
-]
-
-const createStore = (
-  initialStore: Store,
-  reducer?: Reducer
-): ReturnedFunctions => {
-  let store: Store = initialStore
-  const listeners = new Set<Listener>()
+const createStore = <TStore>(
+  initialStore: TStore,
+  reducer?: Reducer<TStore>
+) => {
+  let store: TStore = initialStore
+  const listeners = new Set<Listener<TStore>>()
 
   const getStore = () => store
 
-  const dispatch = (action: any) => {
+  const dispatch = (action: TStore | ((prev: TStore) => TStore)) => {
     const oldStore = store
 
     if (reducer) {
       store = reducer(store, action)
     } else {
+      // @ts-expect-error[2349]
       store = isFn(action) ? action(store) : action
     }
 
@@ -42,8 +35,8 @@ const createStore = (
     })
   }
 
-  const useStore = (mapState = (store: Store) => store) => {
-    const [, updater] = useState()
+  const useStore = (mapState = (s: TStore) => s) => {
+    const [, updater] = useState<TStore>()
 
     useEffect(() => {
       const listener = {
@@ -60,7 +53,7 @@ const createStore = (
     return mapState(store)
   }
 
-  return [useStore, dispatch, getStore]
+  return [useStore, dispatch, getStore] as const
 }
 
 export default createStore
