@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import shouldUpdate from './utils/shouldUpdate'
 import isFn from './utils/isFn'
 
@@ -14,7 +14,7 @@ type Listener = {
 type ReturnedFunctions = [
   (store?: Store) => any,
   (action: any) => void,
-  () => Store
+  () => Store,
 ]
 
 const createStore = (
