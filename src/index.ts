@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import shouldUpdate from './utils/shouldUpdate'
 import isFn from './utils/isFn'
 
