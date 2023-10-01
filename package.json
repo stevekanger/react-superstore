@@ -18,6 +18,7 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc",
+    "dev": "tsc -w",
     "prepare": "npm run build"
   },
   "devDependencies": {
