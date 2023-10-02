@@ -1,6 +1,6 @@
 import isObj from './isObj'
 
-const shouldUpdate = (state: any, newState: any) => {
+export default function shouldUpdate(state: any, newState: any) {
   if (state === newState) return false
 
   if (isObj(state) && isObj(newState)) {
@@ -12,5 +12,3 @@ const shouldUpdate = (state: any, newState: any) => {
 
   return true
 }
-
-export default shouldUpdate

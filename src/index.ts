@@ -1,31 +1,37 @@
+import { Reducer, Listener, SetStoreAction } from './types'
 import { useState, useEffect } from 'react'
 import shouldUpdate from './utils/shouldUpdate'
 
-type Store = any
+export default function createStore<TStore, TAction = SetStoreAction<TStore>>(
+  initialStore: TStore,
+  reducer?: Reducer<TStore, TAction>
+) {
+  let store: TStore = initialStore
+  const listeners = new Set<Listener<TStore>>()
 
-type Reducer = (store: Store, action: any) => void
+  // Next 2 lines are stupid typescript BS to infer types using overloads.
+  function useStore(): TStore
+  function useStore<T>(selectorFn: (store: TStore) => T): T
 
-type Listener = {
-  mapState: (store: any) => any
-  updater: React.Dispatch<React.SetStateAction<any>>
-}
+  function useStore(selectorFn = (store: TStore) => store) {
+    const [, updater] = useState<any>(store)
 
-type ReturnedFunctions = [
-  (store?: Store) => any,
-  (action: any) => void,
-  () => Store
-]
+    useEffect(() => {
+      const listener = {
+        updater,
+        selectorFn,
+      }
 
-const createStore = (
-  initialStore: Store,
-  reducer?: Reducer
-): ReturnedFunctions => {
-  let store: Store = initialStore
-  const listeners = new Set<Listener>()
+      listeners.add(listener)
+      return () => {
+        listeners.delete(listener)
+      }
+    }, [])
 
-  const getStore = () => store
+    return selectorFn(store)
+  }
 
-  const dispatch = (action: any) => {
+  function setStore(action: TAction) {
     const oldStore = store
 
     if (reducer) {
@@ -34,32 +40,16 @@ const createStore = (
       store = action instanceof Function ? action(store) : action
     }
 
-    listeners.forEach(({ mapState, updater }) => {
-      const oldState = mapState(oldStore)
-      const newState = mapState(store)
+    listeners.forEach(({ selectorFn, updater }: Listener<TStore>) => {
+      const oldState = selectorFn(oldStore)
+      const newState = selectorFn(store)
       if (shouldUpdate(oldState, newState)) updater(() => newState)
     })
   }
 
-  const useStore = (mapState = (store: Store) => store) => {
-    const [, updater] = useState()
-
-    useEffect(() => {
-      const listener = {
-        updater,
-        mapState,
-      }
-
-      listeners.add(listener)
-      return () => {
-        listeners.delete(listener)
-      }
-    }, [mapState])
-
-    return mapState(store)
+  function getStore() {
+    return store
   }
 
-  return [useStore, dispatch, getStore]
+  return [useStore, setStore, getStore] as const
 }
-
-export default createStore
