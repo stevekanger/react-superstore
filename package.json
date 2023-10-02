@@ -1,6 +1,6 @@
 {
   "name": "react-superstore",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Simple hook to create global state in react",
   "keywords": [
     "react",
@@ -10,7 +10,7 @@
     "store"
   ],
   "main": "dist/index.js",
-  "types": "dist/types.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
