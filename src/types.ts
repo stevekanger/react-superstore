@@ -5,7 +5,7 @@ export type Reducer<TStore, TAction> = (
 
 export type Listener<TStore> = {
   selectorFn: (store: TStore) => TStore
-  updater: React.Dispatch<React.SetStateAction<TStore>>
+  updater: (store: () => Partial<TStore>) => void
 }
 
 export type SetStoreAction<TStore> = TStore | ((store: TStore) => TStore)
