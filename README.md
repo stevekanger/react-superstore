@@ -12,8 +12,16 @@ Simple hook for adding and managing global state in your react app.
 
 ### Installation
 
+Latest requirements are React >= 18.0.0
+
 ```bash
 npm install react-superstore
+```
+
+For older versions minimum requirements are React versions with the `useEffect` hook 16.8.0 - 17.0.2
+
+```bash
+npm install react-superstore@0.0.8
 ```
 
 ## Usage
