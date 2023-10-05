@@ -1,6 +1,6 @@
 {
   "name": "react-superstore",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Simple hook to create global state in react",
   "keywords": [
     "react",

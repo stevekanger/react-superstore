@@ -1,4 +1,4 @@
-export type UpdaterFn<TStore> = (store: () => Partial<TStore>) => void
+export type UpdaterFn<TStore> = (state: () => Partial<TStore>) => void
 
 export type Reducer<TStore, TAction> = (
   store: TStore,

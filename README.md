@@ -1,6 +1,6 @@
 # React Superstore - A React Global State Hook
 
-Simple hook for adding and managing global state in your react app.
+Simple hook for adding and managing global state in your react app. You can get and set values from anywhere in your app.
 
 - [Installation](#installation)
 - [Usage](#usage)

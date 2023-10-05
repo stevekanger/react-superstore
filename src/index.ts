@@ -9,7 +9,7 @@ export default function createStore<TStore, TAction = SetStoreAction<TStore>>(
   let store: TStore = initialStore
   const listeners = new Set<Listener<TStore>>()
 
-  // Next 2 lines are stupid typescript BS to infer types using overloads.
+  // Next 2 lines are typescript BS to infer types using overloads.
   function useStore(): TStore
   function useStore<T>(selectorFn: (store: TStore) => T): T
 
