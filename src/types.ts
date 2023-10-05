@@ -1,3 +1,5 @@
+export type UpdaterFn<TStore> = (store: () => Partial<TStore>) => void
+
 export type Reducer<TStore, TAction> = (
   store: TStore,
   action: TAction
@@ -5,7 +7,7 @@ export type Reducer<TStore, TAction> = (
 
 export type Listener<TStore> = {
   selectorFn: (store: TStore) => TStore
-  updater: (store: () => Partial<TStore>) => void
+  updater: UpdaterFn<TStore>
 }
 
 export type SetStoreAction<TStore> = TStore | ((store: TStore) => TStore)

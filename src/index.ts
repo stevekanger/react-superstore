@@ -1,4 +1,4 @@
-import { Reducer, Listener, SetStoreAction } from './types'
+import { Reducer, Listener, SetStoreAction, UpdaterFn } from './types'
 import { useSyncExternalStore } from 'react'
 import shouldUpdate from './utils/shouldUpdate'
 
@@ -14,7 +14,7 @@ export default function createStore<TStore, TAction = SetStoreAction<TStore>>(
   function useStore<T>(selectorFn: (store: TStore) => T): T
 
   function useStore(selectorFn = (store: TStore) => store) {
-    function subscribe(updater) {
+    function subscribe(updater: UpdaterFn<TStore>) {
       const listener = {
         updater,
         selectorFn,
@@ -25,7 +25,11 @@ export default function createStore<TStore, TAction = SetStoreAction<TStore>>(
       }
     }
 
-    const syncedStore = useSyncExternalStore(subscribe, getStore)
+    const syncedStore = useSyncExternalStore(
+      subscribe,
+      getStore,
+      getServerStore
+    )
     return selectorFn(syncedStore)
   }
 
@@ -47,6 +51,10 @@ export default function createStore<TStore, TAction = SetStoreAction<TStore>>(
 
   function getStore() {
     return store
+  }
+
+  function getServerStore() {
+    return initialStore
   }
 
   return [useStore, setStore, getStore] as const
